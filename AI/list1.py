@@ -119,14 +119,16 @@ class Task:
 
     #   Результаты обучения
     def results(self):
-        global x1_graph, x2_graph
         for i in range(0, self.epochs+1):
             self.epochs_err_count[i] = sum(self.e_count_predict[i*self.objects_count:(i+1)*self.objects_count])
             self.epochs_w0[i] = self.w0[i*(self.objects_count-1)]
             self.epochs_w1[i] = self.w1[i*(self.objects_count-1)]
             self.epochs_w2[i] = self.w2[i*(self.objects_count-1)]
-        x1_graph = ( self.epochs_w0[self.epochs]/self.epochs_w2[self.epochs] - self.epochs_w1[self.epochs]/self.epochs_w2[self.epochs]) * (-5)
-        x2_graph = (-self.epochs_w0[self.epochs]/self.epochs_w2[self.epochs] - self.epochs_w1[self.epochs]/self.epochs_w2[self.epochs]) * (15)
+        self.x1_graph = ( self.epochs_w0[self.epochs]/self.epochs_w2[self.epochs] - self.epochs_w1[self.epochs]/self.epochs_w2[self.epochs]) * (-5)
+        self.x2_graph = (-self.epochs_w0[self.epochs]/self.epochs_w2[self.epochs] - self.epochs_w1[self.epochs]/self.epochs_w2[self.epochs]) * (15)
+
+    def set_epochs(self, e):
+        self.epochs = e
 
 
 if __name__ == "__main__":
@@ -134,8 +136,16 @@ if __name__ == "__main__":
     t1.fill_learn_data()
     t1.specify_class()
     t1.first_iter()
-    t1.all_iter()
+    t1.all_iter() 
     t1.results()
+
+    t2 = Task()
+    t2.set_epochs(1)
+    t2.fill_learn_data()
+    t2.specify_class()
+    t2.first_iter()
+    t2.all_iter()
+    t2.results()
 
     X = np.arange(len(t1.r1))
     Y1 = t1.r1
@@ -151,12 +161,16 @@ if __name__ == "__main__":
 
     axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5)
     axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5)
-    axis[0, 0].plot([-5, 15], [x1_graph, x2_graph])
+    axis[0, 0].plot([-5, 15], [t1.x1_graph, t1.x2_graph])
     axis[0, 0].set_xlim(-5, 20)
     axis[0, 0].set_ylim(-5, 20)
     axis[0, 0].set_title('Title 1')
 
-    axis[0, 1].plot(X, Y2)
+    axis[0, 1].scatter(t2.x1_class1, t2.x2_class1, s=5)
+    axis[0, 1].scatter(t2.x1_class2, t2.x2_class2, s=5)
+    axis[0, 1].plot([-5, 15], [t2.x1_graph, t2.x2_graph])
+    axis[0, 1].set_xlim(-5, 20)
+    axis[0, 1].set_ylim(-5, 20)
     axis[0, 1].set_title('Title 2')
 
     axis[0, 2].plot(X, Y3)
@@ -165,12 +179,10 @@ if __name__ == "__main__":
     axis[1, 0].plot(np.arange(t1.epochs+1), t1.epochs_err_count)
     axis[1, 0].set_title('Title 4')
 
-    axis[1, 1].scatter(X5, Y5, s=5)
-    axis[1, 1].set_xlim(-5, 20)
-    axis[1, 1].set_ylim(-5, 20)
+    axis[1, 1].plot(np.arange(t2.epochs+1), t2.epochs_err_count[:t2.epochs+1])
     axis[1, 1].set_title('Title 5')
 
-    axis[1, 2].plot(x1_graph, x1_graph)
+    axis[1, 2].plot(t1.x1_graph, t1.x1_graph)
     axis[1, 2].set_xlim(-5, 20)
     axis[1, 2].set_ylim(-5, 20)
     axis[1, 2].set_title('Title 6')
