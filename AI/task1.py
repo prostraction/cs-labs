@@ -77,7 +77,7 @@ class Task:
         self.epochs_w5 = np.zeros(epochs+1)
         self.y1_graph = 0
         self.y2_graph = 0
-
+    #   Батчи для листов 2, 3
     def make_batch(self):
         t1 = self.r1[0:objects_count]
         for i in range(0, epochs):
@@ -95,17 +95,16 @@ class Task:
         for i in range(0, epochs):
             for j in range(0, objects_count):
                 self.learn_d[j+i*objects_count] = t5[j]
+    #   Для листа 5 x1 = x2, c1 = c2
     def list_5(self):
         self.x1_c2 = self.x1_c1
         self.x2_c2 = self.x2_c1
         self.sko_c2 = self.sko_c1
-
     #   1.3     Обучающая выборка
     def fill_learn_data(self):
         # d    
         for i in range(0, self.learn_d.size):
             self.learn_d[i] = 1 if self.sigma[i] < delta_C1 else -1
-
         # X1
         for i in range(0, self.learn_x1.size):
             self.learn_x1[i] = (self.x1_c1 + self.sko_c1 * self.r1[i]) if self.learn_d[i] == 1 else (self.x1_c2 + self.sko_c2 * self.r1[i])
@@ -121,7 +120,6 @@ class Task:
         # X5
         for i in range(0, self.learn_x2.size):
             self.learn_x5[i] = (self.x5_c1 + self.sko_c1 * self.r5[i]) if self.learn_d[i] == 1 else (self.x5_c2 + self.sko_c2 * self.r5[i])
-
     #   1.4 Два класса
     def specify_class(self):
         # Класс 1 x1
