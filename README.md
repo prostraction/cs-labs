@@ -1,6 +1,6 @@
 # CS-labs
 
-Build to .exe:
+### How to build
 
 ```
 pip install PyInstaller
