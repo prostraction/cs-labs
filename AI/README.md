@@ -2,6 +2,6 @@
 
 ```
 pip install PyInstaller
-python -m PyInstaller --onefile --noconsole --collect-all numpy task1.py
+python -m PyInstaller --onefile --noconsole task1.py
 ./dist/task1.exe
 ```
