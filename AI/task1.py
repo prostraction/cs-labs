@@ -7,47 +7,36 @@ variant = 9
 np.random.seed(variant)
 
 # Параметры обучения
-delta_C1 = 0.5 #np.random.uniform(0.2, 0.8)
-train_speed = 0.9 #np.random.uniform(0.1, 0.9)
+delta_C1 = 0.75 #np.random.uniform(0.2, 0.8)
+train_speed = 0.45 #np.random.uniform(0.1, 0.9)
 epochs = int(np.random.uniform(7, 12))
 objects_count = int(np.random.uniform(15, 25))
 item_size = int(epochs * objects_count)
 
 class Task:
-    # Класс 1
-    x1_c1 = np.random.uniform(0, 10)
-    x2_c1 = np.random.uniform(5, 15)
-    x3_c1 = np.random.uniform(0, 10)
-    x4_c1 = np.random.uniform(5, 15)
-    x5_c1 = np.random.uniform(0, 10)
-    sko_c1 = np.random.uniform(1, 3)
-    # Класс 2
-    x1_c2 = np.random.uniform(0, 10)
-    x2_c2 = np.random.uniform(5, 15)
-    x3_c2 = np.random.uniform(0, 10)
-    x4_c2 = np.random.uniform(5, 15)
-    x5_c2 = np.random.uniform(0, 10)
-    sko_c2 = np.random.uniform(1, 3)
-    #   1.2     Случайные числа
-    r1 = np.random.normal(0, 1, item_size)
-    r2 = np.random.normal(0, 1, item_size)
-    r3 = np.random.normal(0, 1, item_size)
-    r4 = np.random.normal(0, 1, item_size)
-    r5 = np.random.normal(0, 1, item_size)
-    sigma = np.random.sample(item_size)
-    # Переменные для обучения
-    learn_d = np.zeros(item_size)
-    learn_x0 = np.ones(item_size)
-    learn_x1 = np.zeros(item_size)
-    learn_x2 = np.zeros(item_size)
-    learn_x3 = np.zeros(item_size)
-    learn_x4 = np.zeros(item_size)
-    learn_x5 = np.zeros(item_size)
-    x1_class1 = np.zeros(item_size)
-    x2_class1 = np.zeros(item_size)
-    x1_class2 = np.zeros(item_size)
-    x2_class2 = np.zeros(item_size)
     def __init__(self):
+        # Класс 1
+        self.x1_c1 = np.random.uniform(0, 10)
+        self.x2_c1 = np.random.uniform(5, 15)
+        self.x3_c1 = np.random.uniform(0, 10)
+        self.x4_c1 = np.random.uniform(5, 15)
+        self.x5_c1 = np.random.uniform(0, 10)
+        self.sko_c1 = np.random.uniform(1, 3)
+        # Класс 2
+        self.x1_c2 = np.random.uniform(0, 10)
+        self.x2_c2 = np.random.uniform(5, 15)
+        self.x3_c2 = np.random.uniform(0, 10)
+        self.x4_c2 = np.random.uniform(5, 15)
+        self.x5_c2 = np.random.uniform(0, 10)
+        self.sko_c2 = np.random.uniform(1, 3)
+        #   1.2     Случайные числа
+        self.r1 = np.random.normal(0, 1, item_size)
+        self.r2 = np.random.normal(0, 1, item_size)
+        self.r3 = np.random.normal(0, 1, item_size)
+        self.r4 = np.random.normal(0, 1, item_size)
+        self.r5 = np.random.normal(0, 1, item_size)
+        self.sigma = np.random.sample(item_size)
+
         self.s_wx = np.zeros(item_size)
         self.y_predict = np.zeros(item_size)
         self.e_err_predict = np.zeros(item_size)
@@ -106,6 +95,10 @@ class Task:
         for i in range(0, epochs):
             for j in range(0, objects_count):
                 self.learn_d[j+i*objects_count] = t5[j]
+    def list_5(self):
+        self.x1_c2 = self.x1_c1
+        self.x2_c2 = self.x2_c1
+        self.sko_c2 = self.sko_c1
 
     #   1.3     Обучающая выборка
     def fill_learn_data(self):
@@ -258,6 +251,13 @@ class Task:
 
 
 if __name__ == "__main__":
+    t4 = Task()
+    t4.fill_learn_data()
+    t4.specify_class()
+    t4.first_iter_list4()
+    t4.all_iter_list4()
+    t4.results_list4()
+
     t1 = Task()
     t1.fill_learn_data()
     t1.specify_class()
@@ -268,8 +268,7 @@ if __name__ == "__main__":
     t2 = Task()
     t2.make_batch()
     t2.fill_learn_data()
-    t2.specify_class()
-    
+    t2.specify_class()   
     
     t3 = copy.copy(t2)
 
@@ -282,12 +281,15 @@ if __name__ == "__main__":
     t3.iter_list3()
     t3.results_list3()
 
-    t4 = Task()
-    t4.fill_learn_data()
-    t4.specify_class()
-    t4.first_iter_list4()
-    t4.all_iter_list4()
-    t4.results_list4()
+    t5 = Task()
+    t5.list_5()
+    t5.fill_learn_data()
+    t5.specify_class()
+    t5.first_iter()
+    t5.all_iter() 
+    t5.results()
+
+
 
     X = np.arange(len(t1.r1))
     Y1 = t1.r1
@@ -301,7 +303,7 @@ if __name__ == "__main__":
 
     print(epochs)
 
-    figure, axis = plt.subplots(2, 4)
+    figure, axis = plt.subplots(2, 5)
 
     axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5)
     axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5)
@@ -334,6 +336,13 @@ if __name__ == "__main__":
     axis[0, 3].set_xlim(0, epochs)
     axis[0, 3].set_ylim(-50, 50)
     axis[0, 3].set_title('Title 3_1 :)')
+
+    axis[0, 4].scatter(t5.x1_class1, t5.x2_class1, s=5)
+    axis[0, 4].scatter(t5.x1_class2, t5.x2_class2, s=5)
+    axis[0, 4].plot([-5, 15], [t5.x1_graph, t5.x2_graph])
+    axis[0, 4].set_xlim(-5, 20)
+    axis[0, 4].set_ylim(-5, 20)
+    axis[0, 4].set_title('Title 1')
 
     axis[1, 3].plot(np.arange(epochs+1), t4.epochs_err_count)
     axis[1, 3].set_xlim(0, epochs)
