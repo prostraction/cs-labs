@@ -3,11 +3,11 @@ import numpy as np
 import copy
 
 #   1.1     Начальные значения
-variant = 9
+variant = 30
 np.random.seed(variant)
 
 # Параметры обучения
-delta_C1 = 0.75 #np.random.uniform(0.2, 0.8)
+delta_C1 = 0.55 #np.random.uniform(0.2, 0.8)
 train_speed = 0.45 #np.random.uniform(0.1, 0.9)
 epochs = int(np.random.uniform(7, 12))
 objects_count = int(np.random.uniform(15, 25))
@@ -75,8 +75,8 @@ class Task:
         self.epochs_w3 = np.zeros(epochs+1)
         self.epochs_w4 = np.zeros(epochs+1)
         self.epochs_w5 = np.zeros(epochs+1)
-        self.x1_graph = 0
-        self.x2_graph = 0
+        self.y1_graph = 0
+        self.y2_graph = 0
 
     def make_batch(self):
         t1 = self.r1[0:objects_count]
@@ -127,19 +127,15 @@ class Task:
         # Класс 1 x1
         for i in range(0, item_size):
             self.x1_class1[i] = self.learn_x1[i] if self.learn_d[i] == 1 else -100
-
         # Класс 1 x2
         for i in range(0, item_size):
             self.x2_class1[i] = self.learn_x2[i] if self.learn_d[i] == 1 else -100
-
         # Класс 2 x1
         for i in range(0, item_size):
             self.x1_class2[i] = self.learn_x1[i] if self.learn_d[i] == -1 else -100
-
         # Класс 2 x2
         for i in range(0, item_size):
             self.x2_class2[i] = self.learn_x2[i] if self.learn_d[i] == -1 else -100
-
     #   1.5 Обучение перцептрона
     # Первая итерация
     def first_iter(self):
@@ -154,7 +150,7 @@ class Task:
         self.w0[0] = w_first[0] + self.dw0[0]
         self.w1[0] = w_first[1] + self.dw1[0]
         self.w2[0] = w_first[2] + self.dw2[0]
-
+    # Первая итерация для листа 4 (5 классов)
     def first_iter_list4(self):
         w_first = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
         self.s_wx[0] = np.nanprod(np.dstack((
@@ -175,12 +171,11 @@ class Task:
         self.w3[0] = w_first[3] + self.dw3[0]
         self.w4[0] = w_first[4] + self.dw4[0]
         self.w5[0] = w_first[5] + self.dw5[0]
-
+    # Первая итерация для листа 3 (w0 = 0)
     def iter_list3(self):
         for i in range(0, item_size):
             self.w0[i] = 0
             self.dw0[i] = 0
-
     # Все итерации
     def all_iter(self):
         for i in range(1, item_size):
@@ -194,7 +189,7 @@ class Task:
             self.w0[i] = self.w0[i-1] + self.dw0[i]
             self.w1[i] = self.w1[i-1] + self.dw1[i]
             self.w2[i] = self.w2[i-1] + self.dw2[i]
-
+    # Все итерации для листа 4 (5 классов)
     def all_iter_list4(self):
         for i in range(1, item_size):
             self.s_wx[i] = np.nanprod(np.dstack((
@@ -215,7 +210,6 @@ class Task:
             self.w3[i] = self.w3[i-1] + self.dw3[i]
             self.w4[i] = self.w4[i-1] + self.dw4[i]
             self.w5[i] = self.w5[i-1] + self.dw5[i]
-
     #   Результаты обучения
     def results(self):
         for i in range(0, epochs+1):
@@ -223,19 +217,18 @@ class Task:
             self.epochs_w0[i] = self.w0[i*(objects_count-1)]
             self.epochs_w1[i] = self.w1[i*(objects_count-1)]
             self.epochs_w2[i] = self.w2[i*(objects_count-1)]
-        self.x1_graph = ( self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (-5)
-        self.x2_graph = (-self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (15)
-
-    #   Результаты обучения
+        self.y1_graph = ( self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (-5)
+        self.y2_graph = (-self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (15)
+    #   Результаты обучения для листа 3 (w0 = 0)
     def results_list3(self):
         for i in range(0, epochs+1):
             self.epochs_err_count[i] = sum(self.e_count_predict[i*objects_count:(i+1)*objects_count])
             self.epochs_w0[i] = 0
             self.epochs_w1[i] = self.w1[i*(objects_count-1)]
             self.epochs_w2[i] = self.w2[i*(objects_count-1)]
-        self.x1_graph = ( self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (-5)
-        self.x2_graph = (-self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (15)
-
+        self.y1_graph = ( self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (-5)
+        self.y2_graph = (-self.epochs_w0[epochs]/self.epochs_w2[epochs] - self.epochs_w1[epochs]/self.epochs_w2[epochs]) * (15)
+    #   Результаты обучения для листа 4 (5 классов)
     def results_list4(self):
         for i in range(0, epochs+1):
             self.epochs_err_count[i] = sum(self.e_count_predict[i*objects_count:(i+1)*objects_count])
@@ -246,41 +239,36 @@ class Task:
             self.epochs_w4[i] = self.w4[i*(objects_count-1)]
             self.epochs_w5[i] = self.w5[i*(objects_count-1)]
 
-    def set_epochs(self, e):
-        self.epochs = e
-
-
 if __name__ == "__main__":
+    # Лист 4 (5 клссов)
     t4 = Task()
     t4.fill_learn_data()
     t4.specify_class()
     t4.first_iter_list4()
     t4.all_iter_list4()
     t4.results_list4()
-
+    # Лист 1
     t1 = Task()
     t1.fill_learn_data()
     t1.specify_class()
     t1.first_iter()
     t1.all_iter() 
     t1.results()
-
+    # Лист 2
     t2 = Task()
     t2.make_batch()
     t2.fill_learn_data()
-    t2.specify_class()   
-    
-    t3 = copy.copy(t2)
-
+    t2.specify_class() 
+    t3 = copy.copy(t2)  # Копия здесь
     t2.first_iter()
     t2.all_iter()
     t2.results()
-
+    # Лист 3
     t3.first_iter()
     t3.all_iter()
     t3.iter_list3()
     t3.results_list3()
-
+    # Лист 5 (c1 = c2, x1 = x2)
     t5 = Task()
     t5.list_5()
     t5.fill_learn_data()
@@ -289,74 +277,91 @@ if __name__ == "__main__":
     t5.all_iter() 
     t5.results()
 
-
-
-    X = np.arange(len(t1.r1))
-    Y1 = t1.r1
-    Y2 = t1.r2
-    Y3 = t1.learn_x1
-    Y4 = t1.learn_x2
-    X5 = t1.x1_class1
-    Y5 = t1.x2_class1
-    X6 = t1.x1_class2
-    Y6 = t1.x2_class2
-
-    print(epochs)
-
     figure, axis = plt.subplots(2, 5)
+    figure.set_figheight(7)
+    figure.set_figwidth(14)
 
-    axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5)
-    axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5)
-    axis[0, 0].plot([-5, 15], [t1.x1_graph, t1.x2_graph])
+    axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5, label='С1')
+    axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5, label='С2')
+    axis[0, 0].plot([-5, 15], [t1.y1_graph, t1.y2_graph])
     axis[0, 0].set_xlim(-5, 20)
-    axis[0, 0].set_ylim(-5, 20)
-    axis[0, 0].set_title('Title 1')
+    axis[0, 0].set_ylim(t1.y1_graph, t1.y2_graph)
+    axis[0, 0].set_title('x1 x2')
+    axis[0, 0].legend()
 
-    axis[0, 1].scatter(t2.x1_class1, t2.x2_class1, s=5)
-    axis[0, 1].scatter(t2.x1_class2, t2.x2_class2, s=5)
-    axis[0, 1].plot([-5, 15], [t2.x1_graph, t2.x2_graph])
-    
+    axis[0, 1].scatter(t2.x1_class1, t2.x2_class1, s=5, label='С1')
+    axis[0, 1].scatter(t2.x1_class2, t2.x2_class2, s=5, label='С2')
+    axis[0, 1].plot([-5, 15], [t2.y1_graph, t2.y2_graph])
     axis[0, 1].set_xlim(-5, 20)
-    axis[0, 1].set_ylim(-5, 20)
-    axis[0, 1].set_title('Title 2')
+    axis[0, 1].set_ylim(t2.y1_graph, t2.y2_graph)
+    axis[0, 1].set_title('x1 x2 с батчами')
+    axis[0, 1].legend()
 
-    axis[0, 2].scatter(t3.x1_class1, t3.x2_class1, s=5)
-    axis[0, 2].scatter(t3.x1_class2, t3.x2_class2, s=5)
-    axis[0, 2].plot([-5, 15], [t3.x1_graph, t3.x2_graph])
+    axis[0, 2].scatter(t3.x1_class1, t3.x2_class1, s=5, label='C1')
+    axis[0, 2].scatter(t3.x1_class2, t3.x2_class2, s=5, label='C2')
+    axis[0, 2].plot([-5, 15], [t3.y1_graph, t3.y2_graph])
     axis[0, 2].set_xlim(-5, 20)
-    axis[0, 2].set_ylim(-5, 20)
-    axis[0, 2].set_title('Title 3')
+    axis[0, 2].set_ylim(t3.y1_graph, t3.y2_graph)
+    axis[0, 2].set_title('x1 x2 с батчами без w0')
+    axis[0, 2].legend()
 
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w0)
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w1)
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w2)
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w3)
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w4)
-    axis[0, 3].plot(np.arange(epochs+1), t4.epochs_w5)
-    axis[0, 3].set_xlim(0, epochs)
-    axis[0, 3].set_ylim(-50, 50)
-    axis[0, 3].set_title('Title 3_1 :)')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w0[:epochs], label='w0')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w1[:epochs], label='w1')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w2[:epochs], label='w2')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w3[:epochs], label='w3')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w4[:epochs], label='w4')
+    axis[0, 3].plot(np.arange(epochs), t4.epochs_w5[:epochs], label='w5')
+    axis[0, 3].set_xlim(0, epochs-1)
+    axis[0, 3].set_ylim(np.amin([t4.epochs_w0, t4.epochs_w1, t4.epochs_w2, t4.epochs_w3, t4.epochs_w4, t4.epochs_w5])-1, 
+                        np.amax([t4.epochs_w0, t4.epochs_w1, t4.epochs_w2, t4.epochs_w3, t4.epochs_w4, t4.epochs_w5])+1)
+    axis[0, 3].set_title('x1 x2 x3 x4 x5')
+    axis[0, 3].legend()
 
-    axis[0, 4].scatter(t5.x1_class1, t5.x2_class1, s=5)
-    axis[0, 4].scatter(t5.x1_class2, t5.x2_class2, s=5)
-    axis[0, 4].plot([-5, 15], [t5.x1_graph, t5.x2_graph])
+    axis[0, 4].scatter(t5.x1_class1, t5.x2_class1, s=5, label='C1')
+    axis[0, 4].scatter(t5.x1_class2, t5.x2_class2, s=5, label='C2')
+    axis[0, 4].plot([-5, 15], [t5.y1_graph, t5.y2_graph])
     axis[0, 4].set_xlim(-5, 20)
-    axis[0, 4].set_ylim(-5, 20)
-    axis[0, 4].set_title('Title 1')
+    axis[0, 4].set_ylim(t5.y1_graph, t5.y2_graph)
+    axis[0, 4].set_title('x1 = x2, c1 = c2')
+    axis[0, 4].legend()
 
-    axis[1, 3].plot(np.arange(epochs+1), t4.epochs_err_count)
-    axis[1, 3].set_xlim(0, epochs)
-    axis[1, 3].set_ylim(0, 20)
-    axis[1, 3].set_title('Title 3_1_2 :)')
+    axis[1, 0].plot(np.arange(epochs), t1.epochs_err_count[:epochs], label='Ошибка')
+    axis[1, 0].plot(np.arange(epochs), t1.epochs_w0[:epochs], label='w0')
+    axis[1, 0].plot(np.arange(epochs), t1.epochs_w1[:epochs], label='w1')
+    axis[1, 0].plot(np.arange(epochs), t1.epochs_w2[:epochs], label='w2')
+    axis[1, 0].set_xlim(0, epochs-1)
+    axis[1, 0].set_title('Сходимость')
+    axis[1, 0].legend()
 
-    axis[1, 0].plot(np.arange(epochs+1), t1.epochs_err_count)
-    axis[1, 0].set_title('Title 4')
+    axis[1, 1].plot(np.arange(epochs), t2.epochs_err_count[:epochs], label='Ошибка')
+    axis[1, 1].plot(np.arange(epochs), t2.epochs_w0[:epochs], label='w0')
+    axis[1, 1].plot(np.arange(epochs), t2.epochs_w1[:epochs], label='w1')
+    axis[1, 1].plot(np.arange(epochs), t2.epochs_w2[:epochs], label='w2')
+    axis[1, 1].set_xlim(0, epochs-1)
+    axis[1, 1].set_title('Сходимость')
+    axis[1, 1].legend()
 
-    axis[1, 1].plot(np.arange(epochs+1), t2.epochs_err_count)
-    axis[1, 1].set_title('Title 5')
+    axis[1, 2].plot(np.arange(epochs), t3.epochs_err_count[:epochs], label='Ошибка')
+    axis[1, 2].plot(np.arange(epochs), t3.epochs_w0[:epochs], label='w0')
+    axis[1, 2].plot(np.arange(epochs), t3.epochs_w1[:epochs], label='w1')
+    axis[1, 2].plot(np.arange(epochs), t3.epochs_w2[:epochs], label='w2')
+    axis[1, 2].set_xlim(0, epochs-1)
+    axis[1, 2].set_title('Сходимость')
+    axis[1, 2].legend()
 
-    axis[1, 2].plot(np.arange(epochs+1), t3.epochs_err_count)
-    axis[1, 2].set_title('Title 6')
+    axis[1, 3].plot(np.arange(epochs), t4.epochs_err_count[:epochs], label='Ошибка')
+    axis[1, 3].set_xlim(0, epochs-1)
+    axis[1, 3].set_ylim(0, np.amax(t4.epochs_err_count))
+    axis[1, 3].legend()
+    axis[1, 3].set_title('Сходимость')
+
+    axis[1, 4].plot(np.arange(epochs), t5.epochs_err_count[:epochs], label='Ошибка')
+    axis[1, 4].plot(np.arange(epochs), t5.epochs_w0[:epochs], label='w0')
+    axis[1, 4].plot(np.arange(epochs), t5.epochs_w1[:epochs], label='w1')
+    axis[1, 4].plot(np.arange(epochs), t5.epochs_w2[:epochs], label='w2')
+    axis[1, 4].set_xlim(0, epochs-1)
+    axis[1, 4].set_title('Сходимость')
+    axis[1, 4].legend()
 
     plt.tight_layout()
     plt.show()
