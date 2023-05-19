@@ -3,12 +3,12 @@ import numpy as np
 import copy
 
 #   1.1     Начальные значения
-variant = 7
+variant = 9
 np.random.seed(variant)
 
 # Параметры обучения
-delta_C1 = 0.5 #np.random.uniform(0.2, 0.8)
-train_speed = 0.5 #np.random.uniform(0.1, 0.9)
+delta_C1 = 0.45 #np.random.uniform(0.2, 0.8)
+train_speed = 0.55 #np.random.uniform(0.1, 0.9)
 epochs = int(np.random.uniform(7, 12))
 objects_count = int(np.random.uniform(15, 25))
 item_size = int(epochs * objects_count)
@@ -56,7 +56,7 @@ class Task:
 
         self.dw0 = np.zeros(item_size)
         self.dw1 = np.zeros(item_size)
-        self.dw2 = np.zeros(item_size) 
+        self.dw2 = np.zeros(item_size)
         self.dw3 = np.zeros(item_size)
         self.dw4 = np.zeros(item_size)
         self.dw5 = np.zeros(item_size)
@@ -155,7 +155,7 @@ class Task:
     def first_iter_list4(self):
         w_first = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
         self.s_wx[0] = np.nanprod(np.dstack((
-            np.array([self.learn_x0[0], self.learn_x1[0], self.learn_x2[0], self.learn_x3[0], self.learn_x4[0], self.learn_x5[0]]), 
+            np.array([self.learn_x0[0], self.learn_x1[0], self.learn_x2[0], self.learn_x3[0], self.learn_x4[0], self.learn_x5[0]]),
             w_first)), 2).sum(1)
         self.y_predict[0] = 1 if self.s_wx[0] >= self.sigma[0] else -1
         self.e_err_predict[0] = (self.y_predict[0]-self.learn_d[0])/2
@@ -257,12 +257,12 @@ if __name__ == "__main__":
     t2.first_iter()
     t2.all_iter() 
     t2.results()
-    # Лист 4
+    # Лист 3
     t3.make_batch()
     t3.fill_learn_data()
     t3.specify_class()
     t3.first_iter(True)
-    t3.all_iter(True) 
+    t3.all_iter(True)
     t3.results_list3()
     # Лист 5
     t4.fill_learn_data()
@@ -313,7 +313,7 @@ if __name__ == "__main__":
     axis[0, 3].plot(np.arange(epochs), t4.epochs_w4[:epochs], label='w4')
     axis[0, 3].plot(np.arange(epochs), t4.epochs_w5[:epochs], label='w5')
     axis[0, 3].set_xlim(0, epochs-1)
-    axis[0, 3].set_ylim(np.amin([t4.epochs_w0, t4.epochs_w1, t4.epochs_w2, t4.epochs_w3, t4.epochs_w4, t4.epochs_w5])-1, 
+    axis[0, 3].set_ylim(np.amin([t4.epochs_w0, t4.epochs_w1, t4.epochs_w2, t4.epochs_w3, t4.epochs_w4, t4.epochs_w5])-1,
                         np.amax([t4.epochs_w0, t4.epochs_w1, t4.epochs_w2, t4.epochs_w3, t4.epochs_w4, t4.epochs_w5])+1)
     axis[0, 3].set_title('x1 x2 x3 x4 x5')
     axis[0, 3].legend()
