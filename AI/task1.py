@@ -7,8 +7,8 @@ variant = 7
 np.random.seed(variant)
 
 # Параметры обучения
-delta_C1 = 0.6 #np.random.uniform(0.2, 0.8)
-train_speed = 0.6 #np.random.uniform(0.1, 0.9)
+delta_C1 = 0.5 #np.random.uniform(0.2, 0.8)
+train_speed = 0.5 #np.random.uniform(0.1, 0.9)
 epochs = int(np.random.uniform(7, 12))
 objects_count = int(np.random.uniform(15, 25))
 item_size = int(epochs * objects_count)
@@ -140,7 +140,7 @@ class Task:
     #   1.5 Обучение перцептрона
     # Первая итерация
     def first_iter(self, isList3 = False):
-        w_first = [1.45, 0.3, 0.01]
+        w_first = [0.1, 0.1, 0.1]
         self.s_wx[0] = np.nanprod(np.dstack((np.array([self.learn_x0[0], self.learn_x1[0], self.learn_x2[0]]), w_first)), 2).sum(1)
         self.y_predict[0] = 1 if self.s_wx[0] >= self.sigma[0] else -1
         self.e_err_predict[0] = (self.y_predict[0]-self.learn_d[0])/2
@@ -235,45 +235,41 @@ class Task:
             self.epochs_w4[i] = self.w4[i*(objects_count-1)]
             self.epochs_w5[i] = self.w5[i*(objects_count-1)]
 
+def set_dimensions(x, y):
+    return [x, y] if x < 10 and y < 50 and x > 1 and y > 1 else [-5, 20]
+
 if __name__ == "__main__":
     t1 = Task()
     t2 = copy.deepcopy(t1)
     t3 = copy.deepcopy(t1)
     t4 = copy.deepcopy(t1)
     t5 = copy.deepcopy(t1)
-
-    # Лист 4 (5 клссов)
-    #t4 = Task()
-
     # Лист 1
-    #t1 = Task()
     t1.fill_learn_data()
     t1.specify_class()
     t1.first_iter()
     t1.all_iter() 
     t1.results()
     # Лист 2
-    #t2 = Task()
     t2.make_batch()
     t2.fill_learn_data()
     t2.specify_class()
     t2.first_iter()
     t2.all_iter() 
     t2.results()
-    #t3 = copy.copy(t2)  # Копия здесь
+    # Лист 4
     t3.make_batch()
     t3.fill_learn_data()
     t3.specify_class()
     t3.first_iter(True)
     t3.all_iter(True) 
     t3.results_list3()
-
+    # Лист 5
     t4.fill_learn_data()
     t4.specify_class()
     t4.first_iter_list4()
     t4.all_iter_list4()
     t4.results_list4()
-
     # Лист 5 (c1 = c2, x1 = x2)
     t5.prep_list_5()
     t5.fill_learn_data()
@@ -290,7 +286,7 @@ if __name__ == "__main__":
     axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5, label='С2')
     axis[0, 0].plot([-5, 15], [t1.y1_graph, t1.y2_graph])
     axis[0, 0].set_xlim(-5, 20)
-    axis[0, 0].set_ylim(t1.y1_graph, t1.y2_graph)
+    axis[0, 0].set_ylim(set_dimensions(t1.y1_graph, t1.y2_graph))
     axis[0, 0].set_title('x1 x2')
     axis[0, 0].legend()
 
@@ -298,7 +294,7 @@ if __name__ == "__main__":
     axis[0, 1].scatter(t2.x1_class2, t2.x2_class2, s=5, label='С2')
     axis[0, 1].plot([-5, 15], [t2.y1_graph, t2.y2_graph])
     axis[0, 1].set_xlim(-5, 20)
-    axis[0, 1].set_ylim(t2.y1_graph, t2.y2_graph)
+    axis[0, 1].set_ylim(set_dimensions(t2.y1_graph, t2.y2_graph))
     axis[0, 1].set_title('x1 x2 с батчами')
     axis[0, 1].legend()
 
@@ -306,7 +302,7 @@ if __name__ == "__main__":
     axis[0, 2].scatter(t3.x1_class2, t3.x2_class2, s=5, label='C2')
     axis[0, 2].plot([-5, 15], [t3.y1_graph, t3.y2_graph])
     axis[0, 2].set_xlim(-5, 20)
-    axis[0, 2].set_ylim(t3.y1_graph, t3.y2_graph)
+    axis[0, 2].set_ylim(set_dimensions(t3.y1_graph, t3.y2_graph))
     axis[0, 2].set_title('x1 x2 с батчами без w0')
     axis[0, 2].legend()
 
@@ -326,7 +322,7 @@ if __name__ == "__main__":
     axis[0, 4].scatter(t5.x1_class2, t5.x2_class2, s=5, label='C2')
     axis[0, 4].plot([-5, 15], [t5.y1_graph, t5.y2_graph])
     axis[0, 4].set_xlim(-5, 20)
-    axis[0, 4].set_ylim(t5.y1_graph, t5.y2_graph)
+    axis[0, 4].set_ylim(set_dimensions(t5.y1_graph, t5.y2_graph))
     axis[0, 4].set_title('x1 = x2, c1 = c2')
     axis[0, 4].legend()
 
