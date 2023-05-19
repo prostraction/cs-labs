@@ -264,7 +264,7 @@ if __name__ == "__main__":
     t3.first_iter(True)
     t3.all_iter(True)
     t3.results_list3()
-    # Лист 5
+    # Лист 4
     t4.fill_learn_data()
     t4.specify_class()
     t4.first_iter_list4()
