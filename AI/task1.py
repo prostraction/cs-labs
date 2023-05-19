@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Button
 import numpy as np
 import copy
 
@@ -238,6 +239,9 @@ class Task:
 def set_dimensions(x, y):
     return [x, y] if x < 10 and y < 50 and x > 1 and y > 1 else [-5, 20]
 
+def test(str):
+    print(str)
+
 if __name__ == "__main__":
     t1 = Task()
     t2 = copy.deepcopy(t1)
@@ -281,6 +285,12 @@ if __name__ == "__main__":
     figure, axis = plt.subplots(2, 5)
     figure.set_figheight(7)
     figure.set_figwidth(14)
+
+    figure.add_callback('Next', lambda x: test('123'))
+  
+    axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
+    bnext = Button(axnext, 'Next')
+    bnext.on_clicked(lambda x: test('123'))
 
     axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5, label='С1')
     axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5, label='С2')

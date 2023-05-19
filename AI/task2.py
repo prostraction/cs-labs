@@ -57,12 +57,17 @@ symbols = [[0,0,1,0,0,1,0,0,1,0,0,1,0,0,1],
             [1,0,1,1,0,1,0,1,0,0,1,0,0,1,0],
             [1,1,1,0,0,1,0,1,0,1,0,0,1,1,1]]
 
-symbols_probability = np.random.uniform(0, 1, 40)
-chosen_symbols = []
+class Task:
+    def __init__(self):
+        self.symbols_probability = np.random.uniform(0, 1, len(symbols))
+        self.chosen_symbols = []
 
 if __name__ == "__main__":
-    for i in range (symbols_probability):
-        if symbols_probability[i] < 0.25:
-            chosen_symbols.append(i)
-    print(chosen_symbols)
+    t = Task()
+
+    for i in range(len(t.symbols_probability)):
+        if t.symbols_probability[i] < 0.25:
+            t.chosen_symbols.append(i)
+    t.chosen_symbols = t.chosen_symbols[:8]
+    print(t.chosen_symbols)
         
