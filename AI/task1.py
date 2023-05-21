@@ -286,12 +286,6 @@ if __name__ == "__main__":
     figure.set_figheight(7)
     figure.set_figwidth(14)
 
-    figure.add_callback('Next', lambda x: test('123'))
-  
-    axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
-    bnext = Button(axnext, 'Next')
-    bnext.on_clicked(lambda x: test('123'))
-
     axis[0, 0].scatter(t1.x1_class1, t1.x2_class1, s=5, label='С1')
     axis[0, 0].scatter(t1.x1_class2, t1.x2_class2, s=5, label='С2')
     axis[0, 0].plot([-5, 15], [t1.y1_graph, t1.y2_graph])
