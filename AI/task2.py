@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import copy
 
 #   Начальные значения
 variant = 180
@@ -185,7 +184,6 @@ class Task:
             row_color.append("#78a5de")
             # x0-x15
             for j in range(0, 16):
-                v = self.sym[i%sym_count][j]
                 v_with_err = self.sym_noised[i%sym_count][j]
                 c = '#767676' if v_with_err == 1 else '#FFFFFF'
                 row_value.append(v_with_err)
@@ -246,9 +244,6 @@ class Task:
         table = axis.table(cellText=cell_text,
                       rowLabels=row_labels,
                       colLabels=col_labels,
-                      #colWidths = [0.1]*16,
-                      #rowColours=colors,
-                      #colLabels=columns,
                       loc='center',
                       )
         table.scale(1.05, 1.05)
