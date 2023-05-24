@@ -109,7 +109,7 @@ class Task:
         self.y_graph()
     #   Страница 6
     def solve_list_6(self):
-        self.item_size2 = 200
+        self.item_size_2 = 200
         self.rand_num = np.random.rand(10)
         self.d1 = variant
         self.d2 = variant * 2
@@ -119,17 +119,27 @@ class Task:
         self.e2 = np.mean(self.rand_num)
         self.e3 = self.rand_num.min()
 
-        self.x = list(range(1, 201))
-        self.y = np.random.rand(self.item_size2)
-        self.msa_d1 = np.zeros(self.item_size2 - self.d1)
-        self.msa_d2 = np.zeros(self.item_size2 - self.d2)
-        self.msa_d3 = np.zeros(self.item_size2 - self.d3)
-        self.msa_d4 = np.zeros(self.item_size2 - self.d4)
-        self.ecsp_e1 = np.zeros(self.item_size2 - 1)
-        self.ecsp_e2 = np.zeros(self.item_size2 - 1)
-        self.ecsp_e3 = np.zeros(self.item_size2 - 1)
+        if self.d1 >= self.item_size_2:
+            self.d1 = self.item_size_2 - 1
+        if self.d2 >= self.item_size_2:
+            self.d2 = self.item_size_2 - 1
+        if self.d3 >= self.item_size_2:
+            self.d3 = self.item_size_2 - 1
+        if self.d4 >= self.item_size_2:
+            self.d4 = self.item_size_2 - 1
 
-        for i in range(0, self.item_size2):
+
+        self.x = list(range(1, 201))
+        self.y = np.random.rand(self.item_size_2)
+        self.msa_d1 = np.zeros(self.item_size_2 - self.d1)
+        self.msa_d2 = np.zeros(self.item_size_2 - self.d2)
+        self.msa_d3 = np.zeros(self.item_size_2 - self.d3)
+        self.msa_d4 = np.zeros(self.item_size_2 - self.d4)
+        self.ecsp_e1 = np.zeros(self.item_size_2 - 1)
+        self.ecsp_e2 = np.zeros(self.item_size_2 - 1)
+        self.ecsp_e3 = np.zeros(self.item_size_2 - 1)
+
+        for i in range(0, self.item_size_2):
             if i + 1 >= self.d1:
                 self.msa_d1[i - self.d1] = 0
                 for j in range(0, self.d1):
@@ -180,35 +190,35 @@ class Task:
 
         self.square_deviation = lambda x: (x - np.mean(self.y)) ** 2
         self.dispers[0] = sum(map(self.square_deviation, self.y)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.msa_d1)) ** 2
         self.dispers[1] = sum(map(self.square_deviation, self.msa_d1)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.msa_d2)) ** 2
         self.dispers[2] = sum(map(self.square_deviation, self.msa_d2)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.msa_d3)) ** 2
         self.dispers[3] = sum(map(self.square_deviation, self.msa_d3)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.msa_d4)) ** 2
         self.dispers[4] = sum(map(self.square_deviation, self.msa_d4)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.ecsp_e1)) ** 2
         self.dispers[5] = sum(map(self.square_deviation, self.ecsp_e1)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.ecsp_e2)) ** 2
         self.dispers[6] = sum(map(self.square_deviation, self.ecsp_e2)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
         self.square_deviation = lambda x: (x - np.mean(self.ecsp_e3)) ** 2
         self.dispers[7] = sum(map(self.square_deviation, self.ecsp_e3)) / (
-            self.item_size2 - 1
+            self.item_size_2 - 1
         )
 
         for i in range(0, 8):
