@@ -128,7 +128,6 @@ class Task:
         if self.d4 >= self.item_size_2:
             self.d4 = self.item_size_2 - 1
 
-
         self.x = list(range(1, 201))
         self.y = np.random.rand(self.item_size_2)
         self.msa_d1 = np.zeros(self.item_size_2 - self.d1)
