@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Button
-from scipy.stats import norm, binom, poisson
 import numpy as np
 import copy
 import math
