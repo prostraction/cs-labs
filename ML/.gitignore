@@ -1,0 +1,6 @@
+build
+dist
+*.spec
+upx
+*.vscode
+*.zip

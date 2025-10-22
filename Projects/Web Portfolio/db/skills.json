@@ -1,0 +1,27 @@
+[
+{
+    "item": "C++",
+    "level": 90,
+    "iconPath": "img/skills/c++.svg"
+},
+{
+    "item": "Go",
+    "level": 80,
+    "iconPath": "img/skills/golang.svg"
+},
+{
+    "item": "JS",
+    "level": 50,
+    "iconPath": "img/skills/javascript.svg"
+},
+{
+    "item": "HTML",
+    "level": 100,
+    "iconPath": "img/skills/html.svg"
+},
+{
+    "item": "CSS",
+    "level": 40,
+    "iconPath": "img/skills/css.svg"
+}
+]

@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.App {
+  max-width: 80%;
+  margin: 0 auto;
+  font-family: 'Roboto'
+}
+
+/*
+*:NOT(.list-group) {
+  color: white;
+  background-color: #212121;
+}
+
+.list-group-item-action a {
+  width: 300px;
+}
+
+.list-group-item-action:hover a {
+  background-color: white;
+  color: #212121;
+}
+
+.list-group-item-action a {
+  background-color: white;
+  color: #212121;
+}*/

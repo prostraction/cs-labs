@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1114</width>
+    <height>784</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="left_side">
+      <item>
+       <widget class="QTableView" name="tableView">
+        <property name="dragEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::DragDrop</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="Add_Buttons">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item>
+         <widget class="QPushButton" name="CleanTable">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>Очистить таблицу</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="AddFiles">
+          <property name="text">
+           <string>Добавить файлы</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="AddDirectory">
+          <property name="text">
+           <string>Добавить директорию</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="right_side">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>270</width>
+          <height>230</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::North</enum>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::Rounded</enum>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="tab_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <attribute name="title">
+          <string>Кодирование</string>
+         </attribute>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>297</width>
+            <height>198</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>6</number>
+           </property>
+           <property name="rightMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>13</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Водяной знак представлен как:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>270</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <item>
+                 <widget class="QRadioButton" name="TextRadio">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Текст</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPlainTextEdit" name="EncodingText">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>48</height>
+                   </size>
+                  </property>
+                  <property name="plainText">
+                   <string>qwertyuiopasdfghjklzxcvbnm1234567890</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="CustomWSize">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>  Другие размеры водяного знака</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="CustomWSizeL">
+                <item>
+                 <widget class="QLabel" name="x">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string> Длина: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="CustomWImageX">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
+                  <property name="inputMask">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">32</string>
+                  </property>
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="y">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>  Ширина: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="CustomWImageY">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
+                  <property name="inputMask">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">32</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QRadioButton" name="ImageRadio">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Изображение</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="EncodingImageLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="LoadImageButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Загрузить</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_6">
+         <attribute name="title">
+          <string>Декодирование</string>
+         </attribute>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>281</width>
+            <height>217</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>9</number>
+           </property>
+           <property name="leftMargin">
+            <number>6</number>
+           </property>
+           <property name="topMargin">
+            <number>6</number>
+           </property>
+           <property name="rightMargin">
+            <number>6</number>
+           </property>
+           <property name="bottomMargin">
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>280</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Данное изображение еще не проверялось на наличие водяного знака.</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="DecodingImageLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>64</width>
+                 <height>64</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="WatermarkProvided">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Более точное восстановление знака</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Загрузить водяной знак</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="EncodingImageLabel_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="Preferences">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>250</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Сохранять файлы с водянным знаком:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="NoCustomDirectory">
+           <property name="text">
+            <string>в ту же директорию, добавляя постфикс</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="CustomDirectory">
+           <property name="text">
+            <string>в другую директорию</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="LabelOutputDirectory">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>260</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Другая директория не выбрана.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="ChooseOutputDirectoryButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Выбор директории</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Постфикс:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="PostfixL">
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Имя файла +</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="postfix">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>_edited</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>+ .тип файла</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>344</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="JPEGCustomQL">
+           <item>
+            <widget class="QCheckBox" name="JPEGCustomQRequired">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>220</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Форсировать качество выходных jpeg:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="JPEGQuality">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>100</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="CustomQRequiredL">
+           <item>
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>220</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Форсировать шаг квантования:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="CustomQ">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>150</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="MethodsChooseL">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="font">
+            <font>
+             <kerning>true</kerning>
+            </font>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="ForcedMethod">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Форсировать метод внедрения</string>
+              </property>
+              <property name="tristate">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="DWT">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>ДВП</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+              <property name="autoRepeat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="DCT">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>ДКП</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Пароль для метода ДКП:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="DCT_Pass">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>dfghjkldghjkldfhjkl35jkl63jkl;346j203-49603-</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>video test</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="Code_Buttons">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>test</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Encode">
+          <property name="text">
+           <string>Внедрить знак</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Decode">
+          <property name="text">
+           <string>Восстановить знак</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen_new_file">
+   <property name="text">
+    <string>Open new file</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

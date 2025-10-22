@@ -1,0 +1,25 @@
+﻿#include <iostream>
+
+using namespace std;
+
+void repchar(char = '*', int = 45);
+
+int main()
+{
+	repchar();
+	repchar('=');
+	repchar('+', 30);
+
+	cout << endl;
+	system("pause");
+	return 0;
+}
+
+void repchar(char ch, int n)
+{
+	for (int j = 0; j < n; j++)
+	{
+		cout << ch;
+	}
+	cout << endl;
+}

@@ -1,0 +1,276 @@
+/* INITIALIZATION */
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+const GLint WIDTH = 800, HEIGHT = 600;
+
+// initialize GLFW
+if (!glfwInit())
+{
+	printf("GLFW initialization failed!");
+	glfwTerminate();
+	return 1;
+}
+// setup GLFW window properties
+// openGL version
+glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+// core profile = no backward compability
+glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+// allow forward compability
+glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+GLFWwindow* mainWindow = glfwCreateWindow(WIDTH, HEIGHT, "Test Window", NULL, NULL);
+if (!mainWindow)
+{
+	printf("GLFW window creation failed!");
+	glfwTerminate();
+	return 1;
+}
+// get buffer size information
+int bufferWidth, bufferHeight;
+glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+// set context for GLEW to use
+glfwMakeContextCurrent(mainWindow);
+// allow modern extentios featues
+glewExperimental = GL_TRUE;
+
+if (glewInit() != GLEW_OK)
+{
+	printf("GLEW initialization failed!");
+	glfwDestroyWindow(mainWindow);
+	glfwTerminate();
+	return 1;
+}
+
+glViewport(0, 0, bufferWidth, bufferHeight);
+
+while (!glfwWindowShouldClose(mainWindow))
+{
+	// get + handle user input events
+	glfwPollEvents();
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glfwSwapBuffers(mainWindow);
+}
+
+/* CREATING A TRIANGLE */
+
+GLuint VAO, VBO, shader, uniformModel;
+
+// Vertex Shader
+static const char* vShader = "											\n\
+#version 330															\n\
+layout (location = 0) in vec3 pos;										\n\
+																		\n\
+out vec4 vColor;														\n\
+																		\n\
+uniform mat4 model;														\n\
+uniform mat4 projection;												\n\
+																		\n\
+																		\n\
+void main()																\n\
+{																		\n\
+	gl_Position =  projection * model * vec4(pos, 1.0);					\n\
+	vColor = vec4(clamp(pos, 0.0f, 1.0f), 1.0f);						\n\
+}";
+
+// Fragment Shader
+static const char* fShader = "											\n\
+#version 330															\n\
+																		\n\
+in vec4 vColor;															\n\
+																		\n\
+out vec4 color;															\n\
+void main()																\n\
+{																		\n\
+	color = vColor;														\n\
+}";
+
+// code is for pyramid, delete 2-nd vertice to get a triangle. indices are used for create an order to draw with IBO  
+void CreateTriangle()
+{
+	unsigned int indices[] = {
+		0, 3, 1,
+		1, 3, 2,
+		2, 3, 0,
+		0, 1, 2
+	};
+	
+	GLfloat vertices[] = {
+		-1.0f, -1.0f, 0.0f, // after this line, you cound set a color for this vertice and set it up on the AttribPointer
+		0.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	};
+
+	// create VAO ID
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	
+	// create IBO ID
+	glGenBuffers(1, &IBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	
+	// create VBO ID
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // static draw: we are not going to change vertices
+	
+	// 0: we are going to use shader program and point 0 on it
+	// 3: size of values (x,y,z == 3)
+	// GL_FLOAT: type of vertices
+	// GL_FALSE: no normalization
+	// 0: skip 0 data
+	// 0: begin of the vertices
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0); // 0: 1-st arg of pointer (0 == 0)
+	
+	// unbinding
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbind the IBO/EBO AFTER unbinding the VAO
+	glBindVertexArray(0);
+}
+
+void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType)
+{
+	GLuint theShader = glCreateShader(shaderType);
+	const GLchar* theCode[1];
+	theCode[0] = shaderCode;
+	GLint codeLength[1];
+	codeLength[0] = strlen(shaderCode);
+	glShaderSource(theShader, 1, theCode, codeLength); // 1: string of code
+	glCompileShader(theShader);
+	GLint result = 0;
+	GLchar eLog[1024] = { 0 };
+	glGetShaderiv(theShader, GL_COMPILE_STATUS, &result);
+	if (!result)
+	{
+		glGetShaderInfoLog(theShader, sizeof(eLog), NULL, eLog);
+		printf("Error compiliing the %d shader: '%s'", shaderType, eLog);
+		return;
+	}
+	glAttachShader(theProgram, theShader);
+}
+
+void CompileShaders()
+{
+	shader = glCreateProgram();
+	if (!shader)
+	{
+		printf("Error creating shader program!\n");
+		return;
+	}
+	AddShader(shader, vShader, GL_VERTEX_SHADER);
+	AddShader(shader, fShader, GL_FRAGMENT_SHADER);
+	GLint result = 0;
+	GLchar eLog[1024] = { 0 };
+	glLinkProgram(shader);
+	glGetProgramiv(shader, GL_LINK_STATUS, &result);
+	if (!result)
+	{
+		glGetProgramInfoLog(shader, sizeof(eLog), NULL, eLog);
+		printf("Error linking program: '%s'", eLog);
+		return;
+	}
+	glValidateProgram(shader);
+	glGetProgramiv(shader, GL_VALIDATE_STATUS, &result);
+	if (!result)
+	{
+		glGetProgramInfoLog(shader, sizeof(eLog), NULL, eLog);
+		printf("Error validating program: '%s'", eLog);
+		return;
+	}
+	uniformModel	  = glGetUniformLocation(shader, "model");
+	uniformProjection = glGetUniformLocation(shader, "projection");
+}
+
+// before draw don't forget to call these functions:
+CreateTriangle();
+CompileShaders();
+
+/* DRAW */
+// use the shader:
+glUseProgram(shader);
+// Draw a triangle with:
+glBindVertexArray(VAO);
+glDrawArrays(GL_TRIANGLES, 0, 3);
+glBindVertexArray(0); // unbind VAO's ID
+glUseProgram(0); // unbind shader's ID
+// Draw not primitives with IBO:
+GLuint IBO;
+// an order to draw:
+unsigned int indices[] = {
+		0, 3, 1,
+		1, 3, 2,
+		2, 3, 0,
+		0, 1, 2
+	};
+...
+// create IBO ID
+	glGenBuffers(1, &IBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+...
+// draw:
+glBindVertexArray(VAO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0); // where 12 is a count of vertices
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbind IBO's ID
+glBindVertexArray(0); // unbind VAO's ID
+glUseProgram(0); // unbind shader's ID
+
+/* CREATING MATRIX */
+glm::mat4 model(1.0f); // Identity Matrix
+glm::mat4 projection = glm::perspective(45.0f, (GLfloat) bufferWidth / (GLfloat) bufferHeight, 0.1f, 100.0f); // before the draw. ORTHO projection called by glm::ortho?
+
+/* USING MATRIX AT VERTEX SHADER */
+uniform mat4 model;
+uniform mat4 projection;
+void main()	
+{
+	gl_Position =  projection * model * vec4(pos, 1.0);
+}
+
+/* APPLYING MATRIX TO SHADER */ // (draw)
+glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+
+/* MATRIX OPERATIONS */
+model = glm::translate(model, glm::vec3(0.0f, triOffset, -2.5f));
+model = glm::rotate(model, 270 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+// where toRadians is:
+const float toRadians = 3.14159265f / 180.0f;
+
+/* USING DEPTH */
+glEnable(GL_DEPTH_TEST);
+// draw:
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+/* LIGHT */
+/* ambient */
+// fragment shader:
+struct DirectionalLight 
+{
+	vec3 color;
+	float ambientIntensity;
+};
+uniform DirectionalLight directionalLight;
+void main()
+{
+	vec4 ambientColor = vec4(directionalLight.color, 1.0f) * directionalLight.ambientIntensity;
+	color = texture(theTexture, TexCoord) * ambientColor;
+}
+// code:
+void Light::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColorLocation)
+{
+	glUniform3f(ambientColorLocation, color.x, color.y, color.z);
+	glUniform1f(ambientIntensityLocation, ambientIntenstity);
+}
+// main code:
+mainLight = Light(1.0f, 1.0f, 1.0f, 1.0f);
+// ...
+uniformAmbientColor		= shaderList[0]->GetAmbientColorLocation();
+uniformAmbientIntensity = shaderList[0]->GetAmbientIntensityLocation();
+// ...
+mainLight.UseLight(uniformAmbientIntensity, uniformAmbientColor);
